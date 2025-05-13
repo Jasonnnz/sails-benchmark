@@ -1,8 +1,0 @@
-CREATE TABLE user_pet (
-    id SERIAL PRIMARY KEY,
-    user INTEGER REFERENCES user(id),
-    pet INTEGER REFERENCES pet(id),
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(user, pet)
-); 
