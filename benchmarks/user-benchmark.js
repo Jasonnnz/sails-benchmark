@@ -38,7 +38,7 @@ async function findAllUsersWithLimit() {
 }
 
 async function findUsersWithPetsAndLimit() {
-  return await User.find({ limit: 9999 }, { pets: true });
+  return await User.find({ limit: 9999 }).populate('pets');
 }
 
 // Utility to time a single execution
