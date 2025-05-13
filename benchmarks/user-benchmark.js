@@ -1,32 +1,7 @@
 const Sails = require('sails');
 const Benchmark = require('benchmark');
 const { performance } = require('perf_hooks');
-const { faker } = require('@faker-js/faker');
 
-async function resetAndSeed(users = 1000, petsPerUser = 2) {
-  await Pet.destroy({});
-  await User.destroy({});
-
-  const userData = Array.from({ length: users }).map(() => ({
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-  }));
-
-  const createdUsers = await User.createEach(userData).fetch();
-
-  const petData = [];
-  for (const user of createdUsers) {
-    for (let i = 0; i < petsPerUser; i++) {
-      petData.push({
-        name: faker.animal.cat(),
-        user: user.id,
-      });
-    }
-  }
-
-  await Pet.createEach(petData);
-  console.log(`Seeded ${createdUsers.length} users and ${petData.length} pets.`);
-}
 
 // Named query functions for clarity
 async function findAllUsers() {
@@ -62,9 +37,6 @@ Sails.lift(
     }
 
     try {
-      console.log('Seeding data...');
-      await resetAndSeed();
-
       // Log real-world timings
       console.log('--- Real Execution Times ---');
       await logExecutionTime('Find all users', findAllUsers);
